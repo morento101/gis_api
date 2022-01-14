@@ -2,11 +2,12 @@ from django.db import models
 
 
 class MapModel(models.Model):
-	name_of_territory = models.CharField(verbose_name="Карта", max_length=90)
-	scale = models.CharField(verbose_name="Масштаб", max_length=20)
+    name_of_territory = models.CharField(verbose_name="Карта", max_length=90)
+    scale = models.CharField(verbose_name="Масштаб", max_length=20)
+    chain = models.ForeignKey(verbose_name="Хід", to="ChainModel", on_delete=models.CASCADE, blank=True, default=None)
 
-	def __str__(self):
-		return f"Map: {self.name_of_territory}"
+    def __str__(self):
+        return f"Map: {self.name_of_territory}"
 
 
 class ChainModel(models.Model):
