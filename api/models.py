@@ -4,7 +4,6 @@ from django.db import models
 class MapModel(models.Model):
     name_of_territory = models.CharField(verbose_name="Карта", max_length=90)
     scale = models.CharField(verbose_name="Масштаб", max_length=20)
-    chain = models.ForeignKey(verbose_name="Хід", to="ChainModel", on_delete=models.CASCADE, blank=True, default=None)
 
     def __str__(self):
         return f"Map: {self.name_of_territory}"
@@ -29,6 +28,7 @@ class LineModel(models.Model):
 
 
 class PointModel(models.Model):
+	name = models.CharField(verbose_name="Назва точки", max_length=10)
 	z_coord = models.FloatField(verbose_name="Координата X", blank=True)
 	y_coord = models.FloatField(verbose_name="Координата Y", blank=True)
 	abs_height = models.FloatField(verbose_name="Абсолютна висота", blank=True)
