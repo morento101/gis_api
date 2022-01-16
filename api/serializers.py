@@ -37,6 +37,8 @@ class ChainListSerializer(serializers.ModelSerializer):
 class ChainDetailSerializer(serializers.ModelSerializer):
     """Displays chain"""
 
+    map = serializers.SlugRelatedField(slug_field='name_of_territory', read_only=True)
+
     class Meta:
         model = ChainModel
         fields = '__all__'
