@@ -1,7 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import (
-    MapListSerializer, ChainListSerializer, LineListSerializer, PointListSerializer
+    MapListSerializer, MapDetailSerializer, 
+    ChainListSerializer, ChainDetailSerializer,
+    LineListSerializer, LineDetailSerializer,
+    PointListSerializer, PointDetailSerializer
 )
 from .models import MapModel, ChainModel, LineModel, PointModel
 
@@ -15,6 +18,15 @@ class MapListView(APIView):
         return Response(serializer.data)
 
 
+class MapDetailView(APIView):
+    """View for detail map"""
+
+    def get(self, request, pk):
+        map = MapModel.objects.get(id=pk)
+        serializer = MapDetailSerializer(map)
+        return Response(serializer.data)
+
+
 class ChainListView(APIView):
     """Returns list of chains"""
 
@@ -22,6 +34,16 @@ class ChainListView(APIView):
     def get(self, request):
         chains = ChainModel.objects.all()
         serializer = ChainListSerializer(chains, many=True)
+        return Response(serializer.data)
+
+
+class ChainDetailView(APIView):
+    """Returns specific chain"""
+
+
+    def get(self, request, pk):
+        chain = ChainModel.objects.get(id=pk)
+        serializer = ChainDetailSerializer(chain)
         return Response(serializer.data)
 
 
@@ -34,6 +56,15 @@ class LineListView(APIView):
         return Response(serializer.data)
 
 
+class LineDetailView(APIView):
+    """Returns line"""
+
+    def get(self, request, pk):
+        line = LineModel.objects.get(id=pk)
+        serializer = LineDetailSerializer(line)
+        return Response(serializer.data)
+
+
 class PointListView(APIView):
     """Returns list of points"""
 
@@ -41,4 +72,14 @@ class PointListView(APIView):
     def get(self, request):
         points = PointModel.objects.all()
         serializer = PointListSerializer(points, many=True)
+        return Response(serializer.data)
+
+
+class PointDetailView(APIView):
+    """Returns specific point"""
+
+
+    def get(self, request, pk):
+        point = PointModel.objects.get(id=pk)
+        serializer = PointDetailSerializer(point)
         return Response(serializer.data)

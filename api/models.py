@@ -24,7 +24,7 @@ class ChainModel(models.Model):
 class LineModel(models.Model):
 	length = models.FloatField(verbose_name="Довжина", blank=True)
 	elevation = models.FloatField(verbose_name="Перевищення", blank=True)
-	point = models.ManyToManyField(to="PointModel")
+	point = models.ManyToManyField(to="PointModel") # maybe remove this line
 
 
 class PointModel(models.Model):
