@@ -4,7 +4,7 @@ from .serializers import (
     MapListSerializer, MapDetailSerializer, 
     ChainListSerializer, ChainDetailSerializer,
     LineListSerializer, LineDetailSerializer,
-    PointListSerializer, PointDetailSerializer
+    PointListSerializer, PointDetailSerializer, PointCreateSerializer
 )
 from .models import MapModel, ChainModel, LineModel, PointModel
 
@@ -83,3 +83,14 @@ class PointDetailView(APIView):
         point = PointModel.objects.get(id=pk)
         serializer = PointDetailSerializer(point)
         return Response(serializer.data)
+
+
+class PointCreateView(APIView):
+    """View for creating point"""
+
+    def post(self, request):
+        point = PointCreateSerializer(data=request.data)
+        if point.is_valid():
+            point.save()
+            return Response(status=201)
+        return Response(status=400)

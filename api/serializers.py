@@ -1,5 +1,3 @@
-from dataclasses import field
-from pyexpat import model
 from rest_framework import serializers
 from .models import MapModel, ChainModel, LineModel, PointModel
 
@@ -22,8 +20,7 @@ class MapDetailSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        print(dir(instance))
-        response["chains"] = ChainListSerializer(instance.chainmodel_set, many=True).data
+        response["chains"] = ChainListSerializer(instance.chains, many=True).data
         return response
 
     
@@ -70,6 +67,14 @@ class PointListSerializer(serializers.ModelSerializer):
 
 class PointDetailSerializer(serializers.ModelSerializer):
     """Displays point"""
+
+    class Meta:
+        model = PointModel
+        fields = '__all__'
+
+
+class PointCreateSerializer(serializers.ModelSerializer):
+    """Creates new point"""
 
     class Meta:
         model = PointModel

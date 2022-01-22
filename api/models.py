@@ -13,7 +13,7 @@ class ChainModel(models.Model):
 	name = models.CharField(verbose_name="Назва ходу", max_length=40)
 	type = models.CharField(verbose_name="Тип ходу", max_length=20)
 	accuracy = models.CharField(verbose_name="Точність/класс ходу", max_length=20)
-	map = models.ForeignKey(verbose_name="Карта", to="MapModel", on_delete=models.CASCADE)
+	map = models.ForeignKey(verbose_name="Карта", to="MapModel", on_delete=models.CASCADE, related_name='chains')
 	line = models.ManyToManyField(to="LineModel")
 	point = models.ManyToManyField(to="PointModel")
 
@@ -26,9 +26,15 @@ class LineModel(models.Model):
 	elevation = models.FloatField(verbose_name="Перевищення", blank=True)
 	point = models.ManyToManyField(to="PointModel") # maybe remove this line
 
+	def __str__(self):
+		return f"Line: {self.name}"
+
 
 class PointModel(models.Model):
 	name = models.CharField(verbose_name="Назва точки", max_length=10)
-	z_coord = models.FloatField(verbose_name="Координата X", blank=True)
+	x_coord = models.FloatField(verbose_name="Координата X", blank=True)
 	y_coord = models.FloatField(verbose_name="Координата Y", blank=True)
 	abs_height = models.FloatField(verbose_name="Абсолютна висота", blank=True)
+
+	def __str__(self):
+		return f"Point: {self.name}"

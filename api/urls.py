@@ -3,7 +3,7 @@ from .views import (
     MapListView, MapDetailView, 
     ChainListView, ChainDetailView,
     LineListView, LineDetailView,
-    PointListView, PointDetailView
+    PointListView, PointDetailView, PointCreateView
 )
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('line/<int:pk>/', LineDetailView.as_view(), name='detail-line'),
     path('points/', PointListView.as_view(), name='points'),
     path('point/<int:pk>/', PointDetailView.as_view(), name='detail-point'),
+    path('create-point/', PointCreateView.as_view(), name='create-point')
 ]
